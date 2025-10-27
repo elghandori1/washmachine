@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { Almarai } from 'next/font/google';
 import './globals.css';
 
-// إعداد خط Almarai
 const almarai = Almarai({
   weight: ['300', '400', '700', '800'],
   subsets: ['arabic'],
@@ -10,8 +9,14 @@ const almarai = Almarai({
 });
 
 export const metadata: Metadata = {
-  title: 'غسالة WashMachine - اطلب الآن',
+  title: 'tasmim lik | غسالة WashMachine - اطلب الآن',
   description: 'عرض خاص على غسالة WashMachine الذكية. خصم 20% وتوصيل مجاني.',
+icons: {
+  icon: [
+    { url: '/favicon/favicon.svg', type: 'image/svg+xml' },
+    { url: '/favicon/favicon.ico', type: 'image/x-icon' },
+  ],
+},
 };
 
 export default function RootLayout({

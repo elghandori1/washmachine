@@ -5,16 +5,19 @@ import { useState } from 'react';
 
 export const DemandForm = ({ onClose }: { onClose: () => void }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-
+ const [isSuccess, setIsSuccess] = useState(false);
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
     // Simulate API call
     setTimeout(() => {
-      alert('تم إرسال طلبك بنجاح! سنتصل بك قريباً.');
       setIsSubmitting(false);
-      onClose();
+      setIsSuccess(true);
+      // Reset after 3 seconds
+      setTimeout(() => setIsSuccess(false), 3000);
+      setTimeout(() => onClose(), 3000);
+      
     }, 800);
   };
 
@@ -52,6 +55,19 @@ export const DemandForm = ({ onClose }: { onClose: () => void }) => {
 
         {/* Form */}
         <div className="px-6 pb-6">
+           {isSuccess ? (
+            <div className="text-center py-8">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-green-600" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">تم استلام طلبك!</h3>
+              <p className="text-gray-600">
+                سنتصل بك قريباً لتأكيد التفاصيل. شكرًا لثقتك!
+              </p>
+            </div>
+          ) : (
           <form className="space-y-5" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1.5">
@@ -101,8 +117,9 @@ export const DemandForm = ({ onClose }: { onClose: () => void }) => {
                 id="quantity"
                 defaultValue={1}
                 min={1}
+                max={5}
                 required
-                className="w-full px-4 py-3 bg-white/70 border border-gray-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                className="w-full px-4 py-3 bg-white/70 border text-gray-800 border-gray-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
               />
             </div>
 
@@ -118,6 +135,7 @@ export const DemandForm = ({ onClose }: { onClose: () => void }) => {
               {isSubmitting ? 'جاري الإرسال...' : 'إرسال الطلب'}
             </button>
           </form>
+            )}
         </div>
 
         {/* Trust Note */}
@@ -126,7 +144,7 @@ export const DemandForm = ({ onClose }: { onClose: () => void }) => {
             <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
             </svg>
-            معلوماتك آمنة معنا ولن تُشارك مع أي طرف ثالث
+                معلوماتك آمنة ولن تُستخدم إلا لتأكيد طلبك
           </p>
         </div>
       </div>
