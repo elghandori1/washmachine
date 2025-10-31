@@ -1,9 +1,8 @@
 'use client';
+import React from 'react';
 import { useState } from 'react';
-import React from 'react'; // <-- FIX: Added React import
-// Import our data and NEW types
 import initialData from '../data/data.json';
-import { ContentData, SectionKey } from '../data/types'; // Adjust path as needed
+import { ContentData, SectionKey } from '../data/types';
 
 // Define the shape of our section navigation
 interface Section {
@@ -28,11 +27,7 @@ export default function Dashboard({ onLogout }: { onLogout: () => void }) {
     { key: 'ctaSection', label: 'دعوة للعمل', icon: '🎯' },
   ];
 
-  /**
-   * A dynamic and type-safe function to update nested state.
-   * It uses a path array (e.g., ['heroSection', 'specialOffer', 'text'])
-   * to precisely update a single value.
-   */
+
   const handleInputChange = (path: (string | number)[], value: any) => {
     setContentData((prev) => {
       // Deep clone to avoid state mutation
@@ -48,9 +43,7 @@ export default function Dashboard({ onLogout }: { onLogout: () => void }) {
     });
   };
 
-  /**
-   * Triggers a browser download of the current state as a JSON file.
-   */
+ 
   const downloadJSON = () => {
     const dataStr = JSON.stringify(contentData, null, 2);
     const dataBlob = new Blob([dataStr], { type: 'application/json' });
@@ -62,11 +55,6 @@ export default function Dashboard({ onLogout }: { onLogout: () => void }) {
     URL.revokeObjectURL(url);
   };
 
-  // --- Reusable Field Components for Cleaner Design ---
-
-  /**
-   * Renders a styled input field for a string value.
-   */
   const StringField = ({ label, value, path }: { label: string; value: string; path: (string | number)[] }) => (
     <div className="mb-4">
       <label className="block text-sm font-medium text-gray-600 mb-1">
@@ -81,9 +69,6 @@ export default function Dashboard({ onLogout }: { onLogout: () => void }) {
     </div>
   );
 
-  /**
-   * Renders a styled input field for a number value.
-   */
   const NumberField = ({ label, value, path }: { label: string; value: number; path: (string | number)[] }) => (
     <div className="mb-4">
       <label className="block text-sm font-medium text-gray-600 mb-1">
@@ -98,9 +83,7 @@ export default function Dashboard({ onLogout }: { onLogout: () => void }) {
     </div>
   );
 
-  /**
-   * A container for grouping related fields. This improves the UI significantly.
-   */
+
   const FieldGroup = ({ title, children }: { title: string; children: React.ReactNode }) => (
     <div className="mb-6 border border-gray-200 rounded-lg shadow-sm">
       <h4 className="text-lg font-semibold text-gray-800 bg-gray-50 px-5 py-3 border-b border-gray-200 rounded-t-lg">
@@ -112,12 +95,6 @@ export default function Dashboard({ onLogout }: { onLogout: () => void }) {
     </div>
   );
 
-  // --- Section Rendering Functions ---
-
-  /**
-   * Recursively renders form fields for any given object or array.
-   * This replaces the old, monolithic renderField function.
-   */
   const renderFieldsForObject = (
     obj: Record<string, any>,
     path: (string | number)[]
@@ -181,12 +158,10 @@ export default function Dashboard({ onLogout }: { onLogout: () => void }) {
       }
       
       return null;
-    }).filter(Boolean) as React.ReactElement[]; // <-- FIX 4: Using 'React.ReactElement'
+    }).filter(Boolean) as React.ReactElement[];
   };
 
-  /**
-   * Renders the special UI for the Carousel Images section.
-   */
+
   const renderImagesSection = () => {
     const { src, alt } = contentData.carouselImages;
     return (
@@ -215,9 +190,7 @@ export default function Dashboard({ onLogout }: { onLogout: () => void }) {
     );
   };
   
-  /**
-   * Renders the special UI for the Specifications section.
-   */
+
   const renderSpecsSection = () => {
     const { title, specifications } = contentData.specsSection;
     return (
@@ -255,9 +228,7 @@ export default function Dashboard({ onLogout }: { onLogout: () => void }) {
     );
   };
 
-  /**
-   * Main render function that decides which section UI to show.
-   */
+
   const renderActiveSection = () => {
     switch (activeSection) {
       case 'carouselImages':
@@ -270,10 +241,7 @@ export default function Dashboard({ onLogout }: { onLogout: () => void }) {
       case 'callForm':
       case 'testimonials':
       case 'ctaSection':
-        // Get the data for the active section and render it
-        const data = contentData[activeSection];
-        // 'data' is strongly typed here (e.g., HeroSection)
-        // and is compatible with 'Record<string, any>'
+        const data = contentData[activeSection]; 
         return renderFieldsForObject(data, [activeSection]);
       default:
         return <p>الرجاء اختيار قسم من القائمة.</p>;

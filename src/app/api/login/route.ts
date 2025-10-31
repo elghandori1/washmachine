@@ -14,7 +14,6 @@ export async function POST(request: NextRequest) {
         const { login, password } = await request.json();
 
         if (login === validUser.login && password === validUser.password) {
-    
             return Response.json({ success: true });
         } else {
             return Response.json({ success: false }, { status: 401 });
