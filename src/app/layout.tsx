@@ -9,7 +9,7 @@ const almarai = Almarai({
 });
 
 export const metadata: Metadata = {
-  title: 'tasmim lik | غسالة WashMachine - اطلب الآن',
+  title: 'WashMachine | غسالة WashMachine - اطلب الآن',
   description: 'عرض خاص على غسالة WashMachine الذكية. خصم 20% وتوصيل مجاني.',
 icons: {
   icon: [
