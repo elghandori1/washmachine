@@ -33,23 +33,23 @@ A comprehensive web application featuring a modern RTL (Right-to-Left) landing p
 
 ## Install dependencies:
 
-``bash
+```bash
 npm install
 # or
 yarn install
 # or
 pnpm install
-``
+```
 
 ## Launch development server:
 
-``bash
+```bash
 npm run dev
 # or
 yarn dev
 # or
 pnpm dev
-``
+```
 ## View the website:
 
 Open http://localhost:3000 in your preferred browser
